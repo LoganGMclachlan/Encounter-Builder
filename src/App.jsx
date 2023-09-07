@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NoPage from "./components/NoPage";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Menu from "./components/Menu";
+import Layout from "./components/Layout"
 
-function App() {
-
+export default function App() {
   return (
-    <>
-      <h1>Encounter Builder</h1>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Login/>}/>
+          <Route path="register" element={<Register />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
