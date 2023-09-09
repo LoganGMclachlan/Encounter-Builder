@@ -1,13 +1,20 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../config/firebase";
 
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
-    function handleLogin(e){
+    async function handleLogin(e){
         e.preventDefault()
-        alert(`email:${email}, password:${password}`)
+        try{
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/menu")
+        }
+        catch(error){ console.error(error); }
     }
 
     return(

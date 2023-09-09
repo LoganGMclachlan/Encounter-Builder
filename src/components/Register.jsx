@@ -1,14 +1,21 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import { auth, googleProvider } from "../config/firebase"
 
 export default function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const navigate = useNavigate()
 
-    function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault()
-        alert(`email:${email}, password:${password}, confirm password:${confirmPassword}`)
+        try{
+            await createUserWithEmailAndPassword(auth, email, password)
+            navigate("/menu")
+        }
+        catch(error){ console.error(error); };
     }
 
     return(

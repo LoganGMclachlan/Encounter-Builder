@@ -5,7 +5,7 @@ export default function Layout() {
         <div className="container">
             <h1 className="heading">Encounter Builder</h1>
             <div className="main">
-            <Outlet />
+            <Outlet/>
             </div>
         </div>
     )
