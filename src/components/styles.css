@@ -10,14 +10,14 @@ body{
 }
 
 .container{
-    width:450px;
+    width:400px;
     text-align: center;
 }
 
 .heading{
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -81,10 +81,35 @@ body{
     color:black
 }
 
+.big{
+    width:200px;
+    font-size:30px;
+    height:60px
+}
+
 .google-btn{
     padding:10px;
     background-color: white;
     border: 2px black solid;
     width:200px;
     cursor: pointer;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+}
+
+.user-info{
+    display: flex;
+    gap:10px;
+    margin-top: 10px;
+}
+
+.user-img{
+    width:60px;
+    height: 60px;
+    border-radius: 50px;
 }

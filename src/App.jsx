@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react"
-import { signOut } from "firebase/auth"
-import { auth } from "./config/firebase"
 import NoPage from "./components/NoPage"
 import Login from "./components/Login"
 import Register from "./components/Register"
