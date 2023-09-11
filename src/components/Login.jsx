@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../config/firebase";
 
-export default function Login({ user, setUser, logout }) {
+export default function Login({ user, setUser }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
@@ -15,7 +15,16 @@ export default function Login({ user, setUser, logout }) {
             setUser(auth.currentUser)
             navigate("/menu")
         }
-        catch(error){ console.error(error); }
+        catch(error){ console.error(error) }
+    }
+
+    async function logInWithGoogle(){
+        try{
+            await signInWithPopup(auth, googleProvider)
+            setUser(auth.currentUser)
+            navigate("/menu")
+        }
+        catch(error){ console.error(error) }
     }
 
     return(
@@ -44,12 +53,11 @@ export default function Login({ user, setUser, logout }) {
         
         <div>
         <h3>or</h3>
-        <button className="google-btn">Login with Google</button>
+        <button className="google-btn" onClick={logInWithGoogle}>Login with Google</button>
         </div></>
         :<>
         <h1>You are already Logged In</h1>
         <Link to="/menu">Go to menu</Link>
-        <p onClick={logout}>Logout</p>
         </>
         }
     </>

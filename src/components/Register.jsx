@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth, googleProvider } from "../config/firebase"
 
-export default function Register({ user, setUser, logout }) {
+export default function Register({ user, setUser }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -17,6 +17,15 @@ export default function Register({ user, setUser, logout }) {
             navigate("/menu")
         }
         catch(error){ console.error(error); };
+    }
+
+    async function registerWithGoogle(){
+        try{
+            await signInWithPopup(auth, googleProvider)
+            setUser(auth.currentUser)
+            navigate("/menu")
+        }
+        catch(error){ console.error(error) }
     }
 
     return(
@@ -51,13 +60,12 @@ export default function Register({ user, setUser, logout }) {
         
         <div>
         <h3>or</h3>
-        <button className="google-btn">Register with Google</button>
+        <button className="google-btn" onClick={registerWithGoogle}>Register with Google</button>
         </div>
         </>
         :<>
         <h1>You are already Logged In</h1>
         <Link to="/menu">Go to menu</Link>
-        <p onClick={logout}>Logout</p>
         </>
         }
     </>

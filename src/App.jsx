@@ -18,21 +18,13 @@ export default function App() {
     localStorage.setItem("CURRENT_USER", JSON.stringify(user))
   }, [user])
 
-  async function logout(){
-    try{
-      await signOut(auth)
-      setUser(null)
-    }
-    catch(error){ console.error(error) }
-  }
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<Login user={user} setUser={setUser} logout={logout}/>}/>
-          <Route path="register" element={<Register user={user} setUser={setUser} logout={logout}/>} />
-          <Route path="menu" element={<Menu user={user} setUser={setUser} logout={logout}/>} />
+          <Route index element={<Login user={user} setUser={setUser}/>}/>
+          <Route path="register" element={<Register user={user} setUser={setUser}/>} />
+          <Route path="menu" element={<Menu user={user} setUser={setUser}/>} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
