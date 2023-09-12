@@ -113,3 +113,11 @@ body{
     height: 60px;
     border-radius: 50px;
 }
+
+.back-btn{
+    float:left;
+    cursor: pointer;
+    width:30px;
+    margin-right: -30px;
+    border: none;
+}
