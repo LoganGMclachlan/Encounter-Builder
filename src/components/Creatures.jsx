@@ -8,6 +8,21 @@ export default function Creatures({ user }){
     ?<>
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
         <h2>Creatures</h2>
+        <table className="creature-table">
+            <thead>
+                <th style={{width:"70%"}}>Title</th>
+                <th>Bonus</th>
+                <th>Hp</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Goblin</td>
+                    <td>+2</td>
+                    <td>7</td>
+                </tr>
+            </tbody>
+        </table>
+        <button className="blue-btn bar">New Creature</button>
     </>
     
     :<>
