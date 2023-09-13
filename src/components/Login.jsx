@@ -60,6 +60,7 @@ export default function Login({ user, setUser }) {
         <Link to="/menu">Go to menu</Link>
         </>
         }
+    <br/>
     </>
     )
 }

@@ -68,6 +68,7 @@ export default function Register({ user, setUser }) {
         <Link to="/menu">Go to menu</Link>
         </>
         }
+    <br/>
     </>
     )
 }

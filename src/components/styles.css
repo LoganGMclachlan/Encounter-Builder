@@ -25,7 +25,6 @@ body{
     border:2px solid;
     border-radius: 4px;
     background-color: white;
-    padding-bottom: 20px;
 }
 
 .tab-container{
@@ -129,7 +128,7 @@ body{
     border-collapse: collapse;
 }
 
-.creature-table thead th{
+.creature-table thead tr th{
     border: 1px solid;
 }
 

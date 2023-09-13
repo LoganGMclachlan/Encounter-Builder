@@ -20,7 +20,7 @@ export default function Menu({ user, setUser }) {
     {user
     ?<div className="menu">
         <UserInfo user={user}/>
-        <Link to="/encounters"><button className="blue-btn big">Enocunters</button></Link>
+        <Link to="/encounters"><button className="blue-btn big">Encounters</button></Link>
         <Link to="/creatures"><button className="blue-btn big">Creatures</button></Link>
         <Link to="/characters"><button className="blue-btn big">Characters</button></Link>
         <button className="blue-btn big" onClick={logout}>Logout</button>
@@ -30,6 +30,7 @@ export default function Menu({ user, setUser }) {
         <p>Please <Link to="/">login</Link> to access this page</p>
     </>
     }
+    <br/>
     </>
     )
 }
