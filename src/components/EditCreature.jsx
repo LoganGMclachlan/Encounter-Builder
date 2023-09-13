@@ -17,7 +17,7 @@ export default function EditCreature(){
         try{
             await updateDoc(
                 doc(db, "creatures", creatureId),
-                {title:newTitle,init_bonus:newInit,hp:newHp}
+                {title:newTitle,init_bonus:Number(newInit),hp:Number(newHp)}
             )
             navigate("/creatures")
         }
