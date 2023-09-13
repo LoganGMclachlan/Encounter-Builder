@@ -7,16 +7,34 @@ export default function Register({ user, setUser }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [error, setError] = useState("")
     const navigate = useNavigate()
 
     async function handleRegister(e){
         e.preventDefault()
+
+        if(email === ""){
+            setError("Enter your email.")
+            return
+        }
+        if(password.length < 6){
+            setError("Enter a password at least 6 characters long.")
+            return
+        }
+        if(password !== confirmPassword){
+            setError("Passwords do not match.")
+            return
+        }
+
         try{
             await createUserWithEmailAndPassword(auth, email, password)
             setUser(auth.currentUser)
             navigate("/menu")
         }
-        catch(error){ console.error(error); };
+        catch(error){
+            setError("Email entered was not valid.")
+            console.error(error)
+        }
     }
 
     async function registerWithGoogle(){
@@ -38,6 +56,7 @@ export default function Register({ user, setUser }) {
         </div>
 
         <form onSubmit={handleRegister} className="form">
+            <p className="error">{error}</p>
             <input
                 placeholder="Email..."
                 className="form-input"

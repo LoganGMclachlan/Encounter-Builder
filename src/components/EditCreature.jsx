@@ -12,8 +12,18 @@ export default function EditCreature(){
     const [newTitle, setNewTitle] = useState(creature?.title)
     const [newHp, setNewHp] = useState(creature?.hp)
     const [newInit, setNewInit] = useState(creature?.init_bonus)
+    const [error, setError] = useState("")
 
     async function saveCreature(creatureId){
+        if(newTitle === ""){
+            setError("Enter a title for this creature.")
+            return
+        }
+        if(newHp < 0){
+            setError("Hp cannot be a negative number.")
+            return
+        }
+
         try{
             await updateDoc(
                 doc(db, "creatures", creatureId),
@@ -39,6 +49,7 @@ export default function EditCreature(){
             <Link to="/creatures"><img src={back} className="back-btn"/></Link>
             <h2>Editing {creature.title}</h2>
             <div className="form">
+            <p className="error">{error}</p>
                 <input
                     placeholder="new title"
                     className="form-input"

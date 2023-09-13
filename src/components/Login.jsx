@@ -6,16 +6,30 @@ import { auth, googleProvider } from "../config/firebase"
 export default function Login({ user, setUser }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     const navigate = useNavigate()
 
     async function handleLogin(e){
         e.preventDefault()
+
+        if(email === ""){
+            setError("Enter your email.")
+            return
+        }
+        if(password === ""){
+            setError("Enter your password.")
+            return
+        }
+
         try{
             await signInWithEmailAndPassword(auth, email, password)
             setUser(auth.currentUser)
             navigate("/menu")
         }
-        catch(error){ console.error(error) }
+        catch(error){
+            setError("Incorrect email or password.")
+            console.error(error)
+        }
     }
 
     async function logInWithGoogle(){
@@ -37,6 +51,7 @@ export default function Login({ user, setUser }) {
         </div>
 
         <form onSubmit={handleLogin} className="form">
+            <p className="error">{error}</p>
             <input
                 placeholder="Email..."
                 className="form-input"
