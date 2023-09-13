@@ -8,6 +8,7 @@ import Layout from "./components/Layout"
 import Creatures from "./components/Creatures"
 import Characters from "./components/Characters"
 import Encounters from "./components/Encounters"
+import EditCreature from "./components/EditCreature"
 
 export default function App() {
   const [user, setUser] = useState(() => {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="register" element={<Register user={user} setUser={setUser}/>} />
           <Route path="menu" element={<Menu user={user} setUser={setUser}/>} />
           <Route path="creatures" element={<Creatures user={user}/>}/>
+          <Route path="editCreature" element={<EditCreature/>}/>
           <Route path="encounters" element={<Encounters user={user}/>}/>
           <Route path="characters" element={<Characters user={user}/>}/>
           <Route path="*" element={<NoPage />} />
