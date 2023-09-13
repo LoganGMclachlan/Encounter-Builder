@@ -64,7 +64,9 @@ export default function Creatures({ user }){
         </table>
         :<h3>Loading Your Creatures...</h3>
         }
-        <button className="blue-btn bar" onClick={addNewCreature}>New Creature</button>
+        <button className="blue-btn bar" onClick={addNewCreature} style={{marginLeft:"0px"}}>
+                New Creature
+        </button>
     </>
     
     :<>
