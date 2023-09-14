@@ -42,7 +42,7 @@ export default function Creatures({ user }){
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
         <h2>Creatures</h2>
         {creatures
-        ?<table className="creature-table">
+        ?<table className="table">
             <thead>
                 <tr>
                     <th style={{width:"70%"}}>Title</th>
