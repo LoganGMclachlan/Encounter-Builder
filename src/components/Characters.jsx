@@ -6,6 +6,7 @@ import { db } from "../config/firebase"
 
 export default function Characters({ user }){
     const [parties, setParties] = useState(null)
+    const [searchFinnished, setSearchFinnished] = useState(false)
 
     useEffect(() => {
         getParties()
@@ -20,6 +21,7 @@ export default function Characters({ user }){
             setParties(filteredData.filter(party => party.user_id === user.uid))
         }
         catch(err){console.error(err)}
+        finally{setSearchFinnished(true)}
     }
 
     async function addNewParty(){
@@ -41,7 +43,7 @@ export default function Characters({ user }){
     ?<>
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
         <h2>Characters</h2>
-        {parties
+        {parties?.length > 0
         ?<table className="table">
             <thead>
                 <tr>
@@ -54,7 +56,10 @@ export default function Characters({ user }){
                 )}
             </tbody>
         </table>
-        :<h2>Loading your character parties...</h2>
+        :<>{searchFinnished
+            ?<h3>You have no Parties.</h3>
+            :<h3>Loading Your Parties...</h3>
+        }</>
         }
         <button className="blue-btn bar" onClick={addNewParty} style={{marginLeft:"0px"}}>
                 New Party

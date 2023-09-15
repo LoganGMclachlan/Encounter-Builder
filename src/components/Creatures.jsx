@@ -6,6 +6,7 @@ import { db } from "../config/firebase"
 
 export default function Creatures({ user }){
     const [creatures, setCreatures] = useState(null)
+    const [searchFinnished, setSearchFinnished] = useState(false)
 
     useEffect(() => {
         getCreatures()
@@ -20,6 +21,7 @@ export default function Creatures({ user }){
             setCreatures(filteredData.filter(creature => creature.user_id === user.uid))
         }
         catch(err){console.error(err)}
+        finally{setSearchFinnished(true)}
     }
 
     async function addNewCreature(){
@@ -41,7 +43,7 @@ export default function Creatures({ user }){
     ?<>
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
         <h2>Creatures</h2>
-        {creatures
+        {creatures?.length > 0
         ?<table className="table">
             <thead>
                 <tr>
@@ -62,7 +64,10 @@ export default function Creatures({ user }){
                 )}
             </tbody>
         </table>
-        :<h3>Loading Your Creatures...</h3>
+        :<>{searchFinnished
+            ?<h3>You have no creatures.</h3>
+            :<h3>Loading Your Creatures...</h3>
+        }</>
         }
         <button className="blue-btn bar" onClick={addNewCreature} style={{marginLeft:"0px"}}>
                 New Creature
