@@ -26,13 +26,11 @@ export default function Characters({ user }){
 
     async function addNewParty(){
         try{
-            await addDoc(collection(db, "creatures"), {
-                "title":"New Creature",
-                "init_bonus":0,
-                "hp":0,
+            await addDoc(collection(db, "parties"), {
+                "title":"New Party",
                 "user_id": user.uid
             })
-            getCreatures()
+            getParties()
         }
         catch(err){console.error(err)}
     } 
@@ -52,7 +50,11 @@ export default function Characters({ user }){
             </thead>
             <tbody>
                 {parties.map(party => 
-                    <tr key={party.id}>{party.title}</tr>
+                    <tr key={party.id}>
+                        <td><Link to="/editParty" state={{party:party}}>
+                            {party.title}
+                        </Link></td>
+                    </tr>
                 )}
             </tbody>
         </table>
