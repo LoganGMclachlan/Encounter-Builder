@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import back from "../assets/back-btn.png"
 import { Link } from "react-router-dom"
-import { doc, updateDoc, deleteDoc, getDocs, collection } from "firebase/firestore"
+import { doc, updateDoc, deleteDoc, getDocs, collection, addDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 
 export default function EditParty(){
@@ -24,7 +24,7 @@ export default function EditParty(){
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            setCharacters(filteredData.filter(char => char.party_id === party.uid))
+            setCharacters(filteredData.filter(char => char.party_id === party.id))
         }
         catch(err){console.error(err)}
         finally{setSearchFinnished(true)}
@@ -53,6 +53,19 @@ export default function EditParty(){
         }
         catch(error){console.error(error)}
     }
+
+    async function addNewCharacter(){
+        try{
+            await addDoc(collection(db, "characters"), {
+                "name":"New Character",
+                "hp":1,
+                "init_bonus":0,
+                "party_id": party.id
+            })
+            getCharacters()
+        }
+        catch(err){console.error(err)}
+    } 
 
     return(
         <>
@@ -102,6 +115,10 @@ export default function EditParty(){
                         onClick={() => deleteParty(party.id)}>Delete</button>
                 </span>
             </div>
+            <br/>
+            <button className="blue-btn bar" style={{marginLeft:"0px"}} onClick={addNewCharacter}>
+                Add Character
+            </button>
             <br/>
         </>
         :<>
