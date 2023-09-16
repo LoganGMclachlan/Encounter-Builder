@@ -47,7 +47,12 @@ export default function EditParty(){
     }
 
     async function deleteParty(partyId){
+        if(!window.confirm("Are you sure you want to delete this party?")){return}
+
         try{
+            characters.map(async char => {
+                await deleteDoc(doc(db, "characters", char.id))
+            })
             await deleteDoc(doc(db, "parties", partyId))
             navigate("/characters")
         }

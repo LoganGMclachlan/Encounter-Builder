@@ -35,6 +35,8 @@ export default function EditCreature(){
     }
 
     async function deleteCreature(creatureId){
+        if(!window.confirm("Are you sure you want to delete this creature?")){return}
+
         try{
             await deleteDoc(doc(db, "creatures", creatureId))
             navigate("/creatures")
