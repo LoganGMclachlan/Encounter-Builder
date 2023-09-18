@@ -130,8 +130,8 @@ export default function EditParty(){
         </>
         :<>
             <h2>No Party has been selected</h2>
-            <Link>Return</Link>
-            <br/>
+            <Link onClick={() => navigate(-1)}>Return</Link>
+            <br/><br/>
         </>
         }
         </>

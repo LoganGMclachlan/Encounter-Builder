@@ -87,8 +87,8 @@ export default function EditCreature(){
         </>
         :<>
             <h2>No Creature has been selected</h2>
-            <Link>Return</Link>
-            <br/>
+            <Link onClick={() => navigate(-1)}>Return</Link>
+            <br/><br/>
         </>
         }
         </>

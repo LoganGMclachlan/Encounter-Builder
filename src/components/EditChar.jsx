@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import back from "../assets/back-btn.png"
 import { Link } from "react-router-dom"
 import { doc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -30,7 +30,7 @@ export default function EditChar(){
                 doc(db, "characters", charId),
                 {name:newName,init_bonus:Number(newInit),hp:Number(newHp)}
             )
-            navigate({to:"/editParty",state:{party:party}})
+            navigate("/editParty",{state:{party:party}})
         }
         catch(error){console.error(error)}
     }
@@ -40,7 +40,7 @@ export default function EditChar(){
 
         try{
             await deleteDoc(doc(db, "characters", charId))
-            navigate({to:"/editParty",state:{party:party}})
+            navigate("/editParty",{state:{party:party}})
         }
         catch(error){console.error(error)}
     }
@@ -64,6 +64,7 @@ export default function EditChar(){
                 <input
                     placeholder="new hp..."
                     className="form-input"
+                    type="number"
                     value={newHp}
                     style={{width:"150px",textAlign:"center"}}
                     onChange={e => setNewHp(e.target.value)}
@@ -72,6 +73,7 @@ export default function EditChar(){
                 <input
                     placeholder="new initiative..."
                     className="form-input"
+                    type="number"
                     value={newInit}
                     style={{width:"150px",textAlign:"center"}}
                     onChange={e => setNewInit(e.target.value)}
@@ -86,9 +88,9 @@ export default function EditChar(){
             <br/>
         </>
         :<>
-            <h2>No Party has been selected</h2>
-            <Link>Return</Link>
-            <br/>
+            <h2>No Character has been selected</h2>
+            <Link onClick={() => navigate(-1)}>Return</Link>
+            <br/><br/>
         </>
         }
         </>
