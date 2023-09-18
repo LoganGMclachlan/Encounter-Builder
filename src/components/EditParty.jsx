@@ -8,11 +8,12 @@ import { db } from "../config/firebase"
 export default function EditParty(){
     const navigate = useNavigate()
     const location = useLocation()
-    const party = location.state?.party
+    let party = location.state?.party
     const [newTitle, setNewTitle] = useState(party?.title)
     const [characters, setCharacters] = useState(null)
     const [searchFinnished, setSearchFinnished] = useState(false)
     const [error, setError] = useState("")
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         getCharacters()
@@ -41,7 +42,8 @@ export default function EditParty(){
                 doc(db, "parties", partyId),
                 {title:newTitle}
             )
-            navigate("/characters")
+            party.title = newTitle
+            setMessage("Party title saved.")
         }
         catch(error){console.error(error)}
     }
@@ -80,6 +82,7 @@ export default function EditParty(){
             <h2>Editing {party.title}</h2>
             <div className="form">
                 <p className="error">{error}</p>
+                <p className="error" style={{color:"green"}}>{message}</p>
                 <input
                     placeholder="new title"
                     className="form-input"
