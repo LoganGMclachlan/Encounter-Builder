@@ -10,6 +10,7 @@ import Characters from "./components/Characters"
 import Encounters from "./components/Encounters"
 import EditCreature from "./components/EditCreature"
 import EditParty from "./components/EditParty";
+import EditChar from "./components/EditChar";
 
 export default function App() {
   const [user, setUser] = useState(() => {
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="encounters" element={<Encounters user={user}/>}/>
           <Route path="characters" element={<Characters user={user}/>}/>
           <Route path="editParty" element={<EditParty/>}/>
+          <Route path="editCharacter" element={<EditChar/>}/>
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

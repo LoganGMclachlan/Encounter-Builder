@@ -100,7 +100,9 @@ export default function EditParty(){
                     <tbody>
                         {characters.map(char => 
                             <tr key={char.id}>
-                                <td>{char.name}</td>
+                                <td><Link to="/editCharacter" state={{char:char,party:party}}>
+                                    {char.name}
+                                </Link></td>
                                 <td>{char.init_bonus}</td>
                                 <td>{char.hp}</td>
                             </tr>
