@@ -3,7 +3,7 @@ import back from "../assets/back-btn.png"
 
 export default function Encounters({ user }){
     return(
-    <>
+    <> 
     {user
     ?<>
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
