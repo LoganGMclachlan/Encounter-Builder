@@ -148,3 +148,8 @@ body{
     margin-top:-10px;
     margin-bottom:0px;
 }
+
+.run_btn{
+    width:100%;
+    height:100%
+}
