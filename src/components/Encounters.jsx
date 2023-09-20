@@ -40,7 +40,9 @@ export default function Encounters({ user }){
             <tbody>
                 {encounters.map(encounter =>
                     <tr key={encounter.id}>
-                        <td>{encounter.title}</td>
+                        <td><Link to="/editEncounter" state={{encounter:encounter}}>
+                            {encounter.title}
+                        </Link></td>
                         <td style={{padding:"0px"}}><button className="run_btn">Run</button></td>
                     </tr>    
                 )}
