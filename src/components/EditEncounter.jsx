@@ -13,6 +13,7 @@ export default function EditEncounter(){
     const [selectedParty, setSelectedParty] = useState(encounter?.party_id)
     const [parties, setParties] = useState([])
     const [deployments, setDeployments] = useState([])
+    const [creatures, setCreatures] = useState([])
     const [searchFinnished, setSearchFinnished] = useState(false)
     const [error, setError] = useState("")
     const [message, setMessage] = useState("")
@@ -20,6 +21,7 @@ export default function EditEncounter(){
     useEffect(() => {
         getParties()
         getDeployments()
+        getCreatures()
         setSearchFinnished(true)
     }, [])
 
@@ -39,8 +41,19 @@ export default function EditEncounter(){
             const rawData = await getDocs(collection(db, "deployments"))
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
-            }))
+            })) 
             setDeployments(filteredData.filter(deployment => deployment.encounter_id === encounter.id))
+        }
+        catch(err){console.error(err)}
+    }
+
+    async function getCreatures(){
+        try{
+            const rawData = await getDocs(collection(db, "creatures"))
+            const filteredData = rawData.docs.map(doc => ({
+                ...doc.data(), id: doc.id
+            }))
+            setCreatures(filteredData.filter(creature => creature.user_id === encounter.user_id))
         }
         catch(err){console.error(err)}
     }
@@ -92,7 +105,7 @@ export default function EditEncounter(){
                     onChange={e => setNewTitle(e.target.value)}
                 />
 
-                {parties?.length > 0
+                {parties.length > 0
                 ?<table className="table">
                     <thead>
                         <tr>
@@ -116,6 +129,35 @@ export default function EditEncounter(){
                 }</>
                 }
                 
+                {deployments.length > 0
+                ?<table className="table">
+                    <thead>
+                        <tr>
+                            <th>Creature</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {deployments.map(deployment => 
+                            <tr key={deployment.id}>
+                                {creatures.map(creature =>
+                                    <>
+                                    {creature.id === deployment.creature_id &&
+                                        <td>{creature.title}</td>
+                                    }
+                                    </>
+                                )}
+                                <td>{deployment.count}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+                :<>{searchFinnished
+                    ?<h3>You have no Deployments.</h3>
+                    :<h3>Loading Your Deployments...</h3>
+                }</>
+                }
+
                 <span>
                     <button className="blue-btn" onClick={() => saveEncounter(encounter.id)}>Save</button>
                     <button className="blue-btn" style={{backgroundColor:"red"}}
