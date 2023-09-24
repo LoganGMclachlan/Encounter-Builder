@@ -24,6 +24,18 @@ export default function Encounters({ user }){
         finally{setSearchFinnished(true)}
     }
 
+    async function addNewEncounter(){
+        try{
+            await addDoc(collection(db, "encounters"), {
+                "title":"New Encounter",
+                "user_id": user.uid,
+                "party_id":""
+            })
+            getEncounters()
+        }
+        catch(err){console.error(err)}
+    }
+
     return(
     <> 
     {user
@@ -53,7 +65,7 @@ export default function Encounters({ user }){
             :<h3>Loading Your Encounters...</h3>
         }</>
         }
-        <button className="blue-btn bar" style={{marginLeft:"0px"}}>
+        <button className="blue-btn bar" style={{marginLeft:"0px"}} onClick={() => addNewEncounter()}>
                 New Encounter
         </button>
     </>

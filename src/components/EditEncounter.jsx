@@ -157,7 +157,9 @@ export default function EditEncounter(){
                     :<h3>Loading Your Deployments...</h3>
                 }</>
                 }
-
+                <Link className="bar" to="/addCreature" state={{encounter:encounter}}>
+                    <button className="blue-btn bar" style={{marginLeft:"-1px"}}>Add Creatures</button>
+                </Link>
                 <span>
                     <button className="blue-btn" onClick={() => saveEncounter(encounter.id)}>Save</button>
                     <button className="blue-btn" style={{backgroundColor:"red"}}
