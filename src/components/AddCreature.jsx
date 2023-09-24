@@ -29,6 +29,28 @@ export default function AddCreature(){
         finally{setSearchFinnished(true)}
     }
 
+    async function addNewDeployment(){
+        if(!selectedCreature){
+            setError("Select a creature to add")
+            return
+        }
+
+        if(count < 1){
+            setError("Count must be at least 1")
+            return
+        }
+
+        try{
+            await addDoc(collection(db, "deployments"), {
+                "count":count,
+                "creature_id":selectedCreature,
+                "encounter_id":encounter.id
+            })
+            navigate("/editEncounter",{state:{encounter:encounter}})
+        }
+        catch(err){console.error(err)}
+    }
+
     return(
         <>
         {encounter
@@ -64,8 +86,10 @@ export default function AddCreature(){
                     />
             </span>
             <span>
-                <Link to="/editEncounter" state={{encounter:encounter}}><button className="blue-btn" style={{backgroundColor:"red"}}>Cancel</button></Link>
-                <button className="blue-btn">Confirm</button>
+                <Link to="/editEncounter" state={{encounter:encounter}}>
+                    <button className="blue-btn" style={{backgroundColor:"red"}}>Cancel</button>
+                </Link>
+                <button className="blue-btn" onClick={() => addNewDeployment()}>Confirm</button>
             </span>
             <br/>
         </div>
