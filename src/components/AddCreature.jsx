@@ -93,12 +93,15 @@ export default function AddCreature(){
             </span>
             <br/>
         </div>
-        :<>
-            <h3>You dont have any creatures to add</h3>
-            <Link to="/creatures">Create one here</Link>
-        </>
-        }
-        </>
+        :<>{searchFinnished
+            ?<>
+                <h3>You dont have any creatures to add</h3>
+                <Link to="/creatures">Create one here</Link>
+                <br/><br/>
+            </>
+            :<h3>Loading Your Creatures...</h3>
+        }</>
+        }</>
 
         :<>
             <h2>No Encounter has been selected</h2>

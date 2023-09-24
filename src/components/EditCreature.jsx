@@ -29,7 +29,7 @@ export default function EditCreature(){
                 doc(db, "creatures", creatureId),
                 {title:newTitle,init_bonus:Number(newInit),hp:Number(newHp)}
             )
-            navigate("/parties")
+            navigate("/creatures")
         }
         catch(error){console.error(error)}
     }
