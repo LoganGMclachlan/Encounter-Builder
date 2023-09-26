@@ -83,6 +83,7 @@ export default function AddCreature(){
                     type="number"
                     style={{width:"40px"}}
                     onChange={e => setCount(e.target.value)}
+                    defaultValue={1}
                     />
             </span>
             <span>

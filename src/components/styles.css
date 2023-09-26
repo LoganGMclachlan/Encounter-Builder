@@ -138,6 +138,19 @@ body{
     border: 1px solid;
 }
 
+.table tbody tr td button{
+    width:100%;
+    height:100%;
+    color:rgb(47, 145, 249);
+    font-weight: bold;
+    background-color:white;
+    cursor: pointer;
+}
+
+.table tbody tr td button:hover{
+    background-color: lightgrey;
+}
+
 .bar{
     width:100%;
     border-radius: 0px;
@@ -147,9 +160,4 @@ body{
     color:red;
     margin-top:-10px;
     margin-bottom:0px;
-}
-
-.run_btn{
-    width:100%;
-    height:100%
 }

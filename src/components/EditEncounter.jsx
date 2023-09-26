@@ -88,6 +88,14 @@ export default function EditEncounter(){
         catch(error){console.error(error)}
     }
 
+    async function deleteDeployment(deploymentId){
+        try{
+            await deleteDoc(doc(db, "deployments", deploymentId))
+            setDeployments([...deployments.filter(deployment => deployment.id !== deploymentId)])
+        }
+        catch(error){console.error(error)}
+    }
+
     return(
         <>
         {encounter
@@ -133,8 +141,9 @@ export default function EditEncounter(){
                 ?<table className="table">
                     <thead>
                         <tr>
-                            <th>Creature</th>
+                            <th style={{width:"60%"}}>Creature</th>
                             <th>Count</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,6 +157,11 @@ export default function EditEncounter(){
                                     </>
                                 )}
                                 <td>{deployment.count}</td>
+                                <td style={{padding:"0px"}}>
+                                    <button style={{color:"red"}} onClick={() => deleteDeployment(deployment.id)}>
+                                        X
+                                    </button>
+                                </td>
                             </tr>
                         )}
                     </tbody>

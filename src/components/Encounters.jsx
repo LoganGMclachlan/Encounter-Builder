@@ -55,7 +55,7 @@ export default function Encounters({ user }){
                         <td><Link to="/editEncounter" state={{encounter:encounter}}>
                             {encounter.title}
                         </Link></td>
-                        <td style={{padding:"0px"}}><button className="run_btn">Run</button></td>
+                        <td style={{padding:"0px"}}><button>Run</button></td>
                     </tr>    
                 )}
             </tbody>
