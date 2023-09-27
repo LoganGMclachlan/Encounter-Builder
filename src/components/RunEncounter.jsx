@@ -47,7 +47,7 @@ export default function EditEncounter(){
         const deployments = await getDeployments()
         const creatures = await getCreatures()
         let creatureList = await getCharacters()
-        
+
         let foundCreature = false
         deployments.map(deployment => {
             foundCreature = false
@@ -66,6 +66,8 @@ export default function EditEncounter(){
             }
         })
 
+        creatureList = creatureList.filter(item => item !== undefined)
+
         // orders list by initiative (heighest => lowest)
         creatureList.sort((a,b) => {
             return b.initiative - a.initiative
@@ -75,7 +77,8 @@ export default function EditEncounter(){
         let newId = 0
         creatureList.map(item => {
             newId++
-            return item.id=newId
+            item.id = newId
+            return item
         })
 
         setEncounterList(creatureList)

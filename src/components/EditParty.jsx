@@ -10,7 +10,7 @@ export default function EditParty(){
     const location = useLocation()
     let party = location.state?.party
     const [newTitle, setNewTitle] = useState(party?.title)
-    const [characters, setCharacters] = useState(null)
+    const [characters, setCharacters] = useState([])
     const [searchFinnished, setSearchFinnished] = useState(false)
     const [error, setError] = useState("")
     const [message, setMessage] = useState("")
@@ -91,7 +91,7 @@ export default function EditParty(){
                     onChange={e => setNewTitle(e.target.value)}
                 />
 
-                {characters?.length > 0
+                {characters.length > 0
                 ?<table className="table">
                     <thead>
                         <tr>
@@ -104,7 +104,7 @@ export default function EditParty(){
                         {characters.map(char => 
                             <tr key={char.id}>
                                 <td><Link to="/editCharacter" state={{char:char,party:party}}>
-                                    {char.name}
+                                    {char.title}
                                 </Link></td>
                                 <td>{char.init_bonus}</td>
                                 <td>{char.hp}</td>
