@@ -10,10 +10,17 @@ export default function EditEncounter(){
     const location = useLocation()
     let encounter = location.state?.encounter
     const [encounterList, setEncounterList] = useState([])
+    const [currentItem, setCurrentItem] = useState(1)
 
     useEffect(() => {
-        getDeployedCreatures()
+        startEncounter()
     }, [])
+
+    function startEncounter(){
+        setEncounterList([])
+        getDeployedCreatures()
+        setCurrentItem(1)
+    }
 
     async function getCharacters(){
         try{
@@ -59,9 +66,19 @@ export default function EditEncounter(){
             }
         })
 
-        setEncounterList(creatureList.sort((a,b) => {
+        // orders list by initiative (heighest => lowest)
+        creatureList.sort((a,b) => {
             return b.initiative - a.initiative
-        }))
+        })
+
+        // adds new unique id to each item
+        let newId = 0
+        creatureList.map(item => {
+            newId++
+            return item.id=newId
+        })
+
+        setEncounterList(creatureList)
     }
 
     async function getDeployments(){
@@ -86,6 +103,22 @@ export default function EditEncounter(){
         catch(err){console.error(err)}
     }
 
+    function nextItem(){
+        if(encounterList.length === currentItem){
+            setCurrentItem(1)
+            return
+        }
+        setCurrentItem((currentItem+1))
+    }
+
+    function lastItem(){
+        if(currentItem === 1){
+            setCurrentItem(encounterList.length)
+            return
+        }
+        setCurrentItem((currentItem-1))
+    }
+
     return(
         <>
         {encounter
@@ -105,10 +138,18 @@ export default function EditEncounter(){
                     {encounterList.length > 0 &&
                     <tbody>
                         {encounterList.map(item => 
-                            <tr>
+                            <tr key={item.id}>
                                 <td>{item.initiative}</td>
                                 <td>{item.title}</td>
-                                <td>{item.hp}</td>
+                                <td><input
+                                    placeholder="hp"
+                                    defaultValue={item.hp}
+                                    style={{"width":"40px"}}
+                                    type="number"
+                                /></td>
+                                {item.id === currentItem &&
+                                    <td style={{"backgroundColor":"lightblue"}}>Current</td>
+                                }
                             </tr>
                         )}
                     </tbody>
@@ -116,10 +157,12 @@ export default function EditEncounter(){
                 </table>
                 
                 <span>
-                    <button className="blue-btn">Next</button>
-                    <button className="blue-btn">Previous</button>
+                    <button className="blue-btn" onClick={lastItem}>Previous</button>
+                    <button className="blue-btn" onClick={nextItem}>Next</button>
                 </span>
-                <button className="blue-btn bar" style={{marginLeft:"-1px"}}>Restart Encounter</button>
+                <button className="blue-btn bar" style={{marginLeft:"-1px"}} onClick={startEncounter}>
+                    Restart Encounter
+                    </button>
             </div>
             <br/>
         </>
