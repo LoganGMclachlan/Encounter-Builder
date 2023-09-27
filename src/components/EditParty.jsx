@@ -64,7 +64,7 @@ export default function EditParty(){
     async function addNewCharacter(){
         try{
             await addDoc(collection(db, "characters"), {
-                "name":"New Character",
+                "title":"New Character",
                 "hp":1,
                 "init_bonus":0,
                 "party_id": party.id

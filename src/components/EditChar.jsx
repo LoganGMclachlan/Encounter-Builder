@@ -28,7 +28,7 @@ export default function EditChar(){
         try{
             await updateDoc(
                 doc(db, "characters", charId),
-                {name:newName,init_bonus:Number(newInit),hp:Number(newHp)}
+                {title:newName,init_bonus:Number(newInit),hp:Number(newHp)}
             )
             navigate("/editParty",{state:{party:party}})
         }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 import NoPage from "./components/NoPage"
 import Login from "./components/Login"
@@ -9,10 +9,11 @@ import Creatures from "./components/Creatures"
 import Characters from "./components/Characters"
 import Encounters from "./components/Encounters"
 import EditCreature from "./components/EditCreature"
-import EditParty from "./components/EditParty";
-import EditChar from "./components/EditChar";
-import EditEncounter from "./components/EditEncounter";
-import AddCreature from "./components/AddCreature";
+import EditParty from "./components/EditParty"
+import EditChar from "./components/EditChar"
+import EditEncounter from "./components/EditEncounter"
+import AddCreature from "./components/AddCreature"
+import RunEncounter from "./components/RunEncounter"
 
 export default function App() {
   const [user, setUser] = useState(() => {
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="encounters" element={<Encounters user={user}/>}/>
           <Route path="editEncounter" element={<EditEncounter/>}/>
           <Route path="addCreature" element={<AddCreature/>}/>
+          <Route path="runEncounter" element={<RunEncounter/>}/>
           <Route path="characters" element={<Characters user={user}/>}/>
           <Route path="editParty" element={<EditParty/>}/>
           <Route path="editCharacter" element={<EditChar/>}/>

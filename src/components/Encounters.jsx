@@ -5,6 +5,7 @@ import { getDocs, collection, addDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 
 export default function Encounters({ user }){
+    const navigate = useNavigate()
     const [encounters, setEncounters] = useState([])
     const [searchFinnished, setSearchFinnished] = useState(false)
 
@@ -36,6 +37,15 @@ export default function Encounters({ user }){
         catch(err){console.error(err)}
     }
 
+    function runEncounter(encounter){
+        if (encounter.party_id === ""){
+            alert("Cannot run this encounter as it does not have a party, please select one first.")
+            return
+        }
+
+        navigate("/runEncounter",{state:{encounter:encounter}})
+    }
+
     return(
     <> 
     {user
@@ -55,7 +65,7 @@ export default function Encounters({ user }){
                         <td><Link to="/editEncounter" state={{encounter:encounter}}>
                             {encounter.title}
                         </Link></td>
-                        <td style={{padding:"0px"}}><button>Run</button></td>
+                        <td style={{padding:"0px"}}><button onClick={() => runEncounter(encounter)}>Run</button></td>
                     </tr>    
                 )}
             </tbody>
