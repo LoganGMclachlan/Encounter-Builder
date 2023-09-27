@@ -12,9 +12,7 @@ export default function EditEncounter(){
     const [encounterList, setEncounterList] = useState([])
 
     useEffect(() => {
-        // get list of chars and creatures in encounter
-        getCharacters()
-        setEncounterList(item => {return {... item, initiative: (Math.random() * (20 - 1) + 1) + item.init_bonus}})
+        getDeployedCreatures()
     }, [])
 
     async function getCharacters(){
@@ -23,9 +21,47 @@ export default function EditEncounter(){
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            setEncounterList(filteredData.filter(char => char.party_id === encounter.party_id))
+
+            return filteredData.map(item => {
+                if(item.party_id === encounter.party_id){
+                    item.initiative = rollInitiative(item.init_bonus)
+                    return item
+                }
+            })
         }
         catch(err){console.error(err)}
+    }
+
+    function rollInitiative(init_bonus){
+        return Math.floor((Math.random() * (20 - 1) + 1) + init_bonus)
+    }
+
+    async function getDeployedCreatures(){
+        const deployments = await getDeployments()
+        const creatures = await getCreatures()
+        let creatureList = await getCharacters()
+        
+        let foundCreature = false
+        deployments.map(deployment => {
+            foundCreature = false
+            while (!foundCreature) {
+                creatures.map(creature => {
+                    if (creature.id === deployment.creature_id){
+                        for (let i = 0; i < deployment.count; i++) {
+                            const rolledCreature = {...creature}
+                            rolledCreature.initiative = rollInitiative(creature.init_bonus)
+                            rolledCreature.title += ` (${i+1})`
+                            creatureList.push(rolledCreature)
+                        }
+                        foundCreature = true
+                    }
+                })
+            }
+        })
+
+        setEncounterList(creatureList.sort((a,b) => {
+            return b.initiative - a.initiative
+        }))
     }
 
     async function getDeployments(){
@@ -34,7 +70,7 @@ export default function EditEncounter(){
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             })) 
-            setDeployments(filteredData.filter(deployment => deployment.encounter_id === encounter.id))
+            return filteredData.filter(deployment => deployment.encounter_id === encounter.id)
         }
         catch(err){console.error(err)}
     }
@@ -45,7 +81,7 @@ export default function EditEncounter(){
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            setCreatures(filteredData.filter(creature => creature.user_id === encounter.user_id))
+            return filteredData.filter(creature => creature.user_id === encounter.user_id)
         }
         catch(err){console.error(err)}
     }
@@ -69,7 +105,7 @@ export default function EditEncounter(){
                     {encounterList.length > 0 &&
                     <tbody>
                         {encounterList.map(item => 
-                            <tr key={item.id}>
+                            <tr>
                                 <td>{item.initiative}</td>
                                 <td>{item.title}</td>
                                 <td>{item.hp}</td>
