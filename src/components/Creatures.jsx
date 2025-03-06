@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import back from "../assets/back-btn.png"
 import { useState, useEffect } from "react"
 import { getDocs, collection, addDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 
 export default function Creatures({ user }){
+    const navigate = useNavigate()
     const [creatures, setCreatures] = useState(null)
     const [searchFinnished, setSearchFinnished] = useState(false)
 
@@ -26,13 +27,15 @@ export default function Creatures({ user }){
 
     async function addNewCreature(){
         try{
-            await addDoc(collection(db, "creatures"), {
+            const newCreature = {
                 "title":"New Creature",
                 "init_bonus":0,
                 "hp":0,
                 "user_id": user.uid
-            })
-            getCreatures()
+            }
+            await addDoc(collection(db, "creatures"), newCreature)
+            
+            navigate("/editCreature",{state:{creature:newCreature}})
         }
         catch(err){console.error(err)}
     } 
