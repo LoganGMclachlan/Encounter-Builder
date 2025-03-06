@@ -15,9 +15,9 @@ body{
 }
 
 .heading{
-    font-size: 35px;
+    font-size: 32px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -128,14 +128,18 @@ body{
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-collapse: collapse;
+    max-height: 50vh;
+    overflow-y: scroll;
 }
 
 .table thead tr th{
     border: 1px solid;
+    width: 100%;
 }
 
 .table tbody tr td{
     border: 1px solid;
+    width: 100%;
 }
 
 .table tbody tr td button{

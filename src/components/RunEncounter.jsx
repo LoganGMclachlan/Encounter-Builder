@@ -129,7 +129,7 @@ export default function EditEncounter(){
             <Link to="/encounters"><img src={back} className="back-btn"/></Link>
             <h2>Running {encounter.title}</h2>
             <div className="form">
-                <table className="table">
+                <div className="table">
                     <thead>
                         <tr>
                             <th>Initiative</th>
@@ -157,7 +157,7 @@ export default function EditEncounter(){
                         )}
                     </tbody>
                     }
-                </table>
+                </div>
                 
                 <span>
                     <button className="blue-btn" onClick={lastItem}>Previous</button>

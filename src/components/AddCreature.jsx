@@ -10,7 +10,7 @@ export default function AddCreature(){
     const [creatures, setCreatures] = useState([])
     const [searchFinnished, setSearchFinnished] = useState(false)
     const [selectedCreature, setSelectedCreature] = useState(null)
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(1)
     const [error, setError] = useState("")
 
     useEffect(() => {
@@ -57,14 +57,9 @@ export default function AddCreature(){
         ?<>
         {creatures.length > 0
         ?<div className="form">
-            <h2>Adding Creature</h2>
+            <h2>Choose a creature to add</h2>
             <p className="error">{error}</p>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Choose A Creature</th>
-                    </tr>
-                </thead>
+            <div className="table">
                 <tbody>
                     {creatures.map(creature => 
                         <tr>
@@ -72,10 +67,11 @@ export default function AddCreature(){
                             ?<td style={{backgroundColor:"lightblue"}}>{creature.title}</td>
                             :<td onClick={() => setSelectedCreature(creature.id)}>{creature.title}</td>
                             }
+                            <td style={{padding:"0px"}}/>
                         </tr>    
                     )}
                 </tbody>
-            </table>
+            </div>
 
             <span>
                 <label>Count: </label>
@@ -83,7 +79,7 @@ export default function AddCreature(){
                     type="number"
                     style={{width:"40px"}}
                     onChange={e => setCount(e.target.value)}
-                    defaultValue={1}
+                    value={count}
                     />
             </span>
             <span>

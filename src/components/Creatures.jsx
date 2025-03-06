@@ -27,15 +27,14 @@ export default function Creatures({ user }){
 
     async function addNewCreature(){
         try{
-            const newCreature = {
+            await addDoc(collection(db, "creatures"), {
                 "title":"New Creature",
                 "init_bonus":0,
                 "hp":0,
                 "user_id": user.uid
-            }
-            await addDoc(collection(db, "creatures"), newCreature)
+            })
             
-            navigate("/editCreature",{state:{creature:newCreature}})
+            getCreatures()
         }
         catch(err){console.error(err)}
     } 
@@ -45,12 +44,12 @@ export default function Creatures({ user }){
     {user
     ?<>
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
-        <h2>Creatures</h2>
+        <h2>Your Creatures</h2>
         {creatures?.length > 0
-        ?<table className="table">
+        ?<div className="table">
             <thead>
                 <tr>
-                    <th style={{width:"70%"}}>Title</th>
+                    <th>Title</th>
                     <th>Bonus</th>
                     <th>Hp</th>
                 </tr>
@@ -66,7 +65,7 @@ export default function Creatures({ user }){
                     </tr>
                 )}
             </tbody>
-        </table>
+        </div>
         :<>{searchFinnished
             ?<h3>You have no creatures.</h3>
             :<h3>Loading Your Creatures...</h3>
