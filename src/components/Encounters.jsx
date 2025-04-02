@@ -53,7 +53,7 @@ export default function Encounters({ user }){
         <Link to="/menu"><img src={back} className="back-btn"/></Link>
         <h2>Encounters</h2>
         {encounters.length > 0
-        ?<table className="table">
+        ?<div className="table">
             <thead>
                 <tr>
                     <th>Encounter</th>
@@ -69,7 +69,7 @@ export default function Encounters({ user }){
                     </tr>    
                 )}
             </tbody>
-        </table>
+        </div>
         :<>{searchFinnished
             ?<h3>You have no encounters.</h3>
             :<h3>Loading Your Encounters...</h3>
